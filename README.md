@@ -14,7 +14,7 @@ BazarDor is a Bangla website for checking the prices of everyday essentials. It 
 - Tailwind CSS and DaisyUI
 - react-hot-toast
 - BetterAuth and MongoDB
-- Hind Siliguri font
+- Hind Siliguri font, with Noto Sans Bengali for clearer digits
 
 ## Features
 
@@ -49,10 +49,9 @@ MONGODB_URL=your_mongodb_connection_string
 
 The database name is `bazar-dor`. You can change it with `MONGODB_DB_NAME`. Keep `.env` private; it is ignored by Git.
 
-For social login, also add `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GITHUB_CLIENT_ID`, and `GITHUB_CLIENT_SECRET`. Each provider's button is available when its credentials are configured. Set these callback URLs in your OAuth applications:
+For Google login, also add `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`. The Google button is available when its credentials are configured. Set this callback URL in your Google OAuth application:
 
 - Google: `http://localhost:3000/api/auth/callback/google`
-- GitHub: `http://localhost:3000/api/auth/callback/github`
 
 Use the deployed site's address for `BETTER_AUTH_URL` and the callbacks in production.
 
@@ -86,4 +85,4 @@ public/           Images and fonts
 
 Registration saves the account in MongoDB and takes the user to sign-in. Successful sign-in opens the home page. The navbar shows the user's name, profile links, and logout button. Product details, profile, and name-update pages check the session on the server. Name changes are saved with BetterAuth's `updateUser` method.
 
-Email verification and password reset are not enabled for this assignment. Google and GitHub login need OAuth credentials. Deployment and visual browser checks are pending.
+Email verification and password reset are not enabled for this assignment. Google login needs OAuth credentials. Deployment and visual browser checks are pending.

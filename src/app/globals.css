@@ -5,6 +5,14 @@
 }
 
 @font-face {
+  font-family: "Bazar Digits";
+  src: url("/fonts/noto-sans-bengali-digits.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+  unicode-range: U+09E6-09EF;
+}
+
+@font-face {
   font-family: "Hind Siliguri";
   src: url("/fonts/hind-siliguri-bengali.woff2") format("woff2");
   font-weight: 400;
@@ -19,7 +27,7 @@
 }
 
 @theme {
-  --font-sans: "Hind Siliguri", "Nirmala UI", sans-serif;
+  --font-sans: "Bazar Digits", "Hind Siliguri", "Nirmala UI", sans-serif;
   --color-page: #f0f5f0;
   --color-surface: #fafcfa;
   --color-ink: #1d271f;

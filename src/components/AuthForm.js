@@ -63,20 +63,20 @@ export default function AuthForm({ mode, enabledProviders, notice = "" }) {
     }
   }
 
-  async function socialLogin(provider) {
-    if (pending) return;
+  async function googleLogin() {
+    if (pending || !enabledProviders.google) return;
     setError("");
-    setPending(provider);
+    setPending("google");
     try {
       const result = await authClient.signIn.social({
-        provider,
+        provider: "google",
         callbackURL: "/?auth=success",
         errorCallbackURL: "/signin?reason=social-error",
       });
       if (result.error)
-        showError(result.error.message || "সোশ্যাল সাইন ইন করা যায়নি।");
+        showError(result.error.message || "Google সাইন ইন করা যায়নি।");
     } catch {
-      showError("সোশ্যাল সাইন ইন করা যায়নি। আবার চেষ্টা করুন।");
+      showError("Google সাইন ইন করা যায়নি। আবার চেষ্টা করুন।");
     } finally {
       setPending("");
     }
@@ -193,40 +193,30 @@ export default function AuthForm({ mode, enabledProviders, notice = "" }) {
         <div className="flex gap-2 max-[600px]:flex-col">
           <button
             type="button"
-            className="btn disabled:opacity-50 focus-visible:outline-brand h-auto min-h-10 rounded-lg border flex-1 gap-1.5 px-2.5 py-2 text-[11px] whitespace-nowrap max-[600px]:text-[13px] font-semibold shadow-none motion-reduce:transition-none border-line bg-transparent text-ink hover:border-[#c6d4c6] hover:bg-[#e6ede6]"
-            onClick={() => socialLogin("google")}
+            className="btn disabled:opacity-50 focus-visible:outline-brand h-auto min-h-10 w-full rounded-lg border gap-1.5 px-2.5 py-2 text-sm whitespace-nowrap font-semibold shadow-none motion-reduce:transition-none border-line bg-transparent text-ink hover:border-[#c6d4c6] hover:bg-[#e6ede6]"
+            onClick={googleLogin}
             disabled={!enabledProviders.google || Boolean(pending)}
             aria-busy={pending === "google"}
           >
-            <span
-              className="font-[Arial,sans-serif] text-[17px] font-bold text-[#4285f4]"
-              aria-hidden="true"
-            >
-              G
-            </span>
-            Google দিয়ে চালিয়ে যান
-          </button>
-          <button
-            type="button"
-            className="btn disabled:opacity-50 focus-visible:outline-brand h-auto min-h-10 rounded-lg border flex-1 gap-1.5 px-2.5 py-2 text-[11px] whitespace-nowrap max-[600px]:text-[13px] font-semibold shadow-none motion-reduce:transition-none border-line bg-transparent text-ink hover:border-[#c6d4c6] hover:bg-[#e6ede6]"
-            onClick={() => socialLogin("github")}
-            disabled={!enabledProviders.github || Boolean(pending)}
-            aria-busy={pending === "github"}
-          >
-            <span
-              className="grid size-[17px] place-items-center rounded-full bg-ink font-[Arial,sans-serif] text-[9px] text-white"
-              aria-hidden="true"
-            >
-              GH
-            </span>
-            GitHub দিয়ে চালিয়ে যান
+            {pending === "google" ? (
+              <span
+                className="loading loading-spinner loading-xs"
+                aria-hidden="true"
+              />
+            ) : (
+              <span
+                className="font-[Arial,sans-serif] text-[17px] font-bold text-[#4285f4]"
+                aria-hidden="true"
+              >
+                G
+              </span>
+            )}
+            {pending === "google" ? "অপেক্ষা করুন…" : "Google দিয়ে চালিয়ে যান"}
           </button>
         </div>
-        {(!enabledProviders.google || !enabledProviders.github) && (
+        {!enabledProviders.google && (
           <p className="mt-3 text-xs text-muted">
-            {!enabledProviders.google && !enabledProviders.github
-              ? "সোশ্যাল সাইন ইন এখন উপলব্ধ নয়। ইমেইল দিয়ে চালিয়ে যান।"
-              : `${!enabledProviders.google ? "Google" : "GitHub"} সাইন ইন এখন উপলব্ধ নয়।`}
+            Google সাইন ইন এখন উপলব্ধ নয়। ইমেইল দিয়ে চালিয়ে যান।
           </p>
         )}
         <p className="mt-4 text-sm">
