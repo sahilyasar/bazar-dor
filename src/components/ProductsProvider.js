@@ -15,13 +15,17 @@ export default function ProductsProvider({ children }) {
     const controller = new AbortController();
     async function load() {
       try {
-        const response = await fetch("/api/products", { signal: controller.signal });
-        if (!response.ok) throw new Error("পণ্যের তথ্য লোড করা যায়নি। আবার চেষ্টা করুন।");
+        const response = await fetch("/api/products", {
+          signal: controller.signal,
+        });
+        if (!response.ok)
+          throw new Error("পণ্যের তথ্য লোড করা যায়নি। আবার চেষ্টা করুন।");
         const data = await response.json();
         setProducts(data.products);
         setFallback(data.fallback);
       } catch (err) {
-        if (err.name !== "AbortError") setError("পণ্যের তথ্য লোড করা যায়নি। আবার চেষ্টা করুন।");
+        if (err.name !== "AbortError")
+          setError("পণ্যের তথ্য লোড করা যায়নি। আবার চেষ্টা করুন।");
       } finally {
         if (!controller.signal.aborted) setLoading(false);
       }
@@ -36,7 +40,15 @@ export default function ProductsProvider({ children }) {
     setAttempt(attempt + 1);
   }
 
-  return <ProductsContext.Provider value={{ products, loading, error, fallback, retry }}>{children}</ProductsContext.Provider>;
+  return (
+    <ProductsContext.Provider
+      value={{ products, loading, error, fallback, retry }}
+    >
+      {children}
+    </ProductsContext.Provider>
+  );
 }
 
-export function useProducts() { return useContext(ProductsContext); }
+export function useProducts() {
+  return useContext(ProductsContext);
+}
