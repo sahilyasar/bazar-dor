@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import categories from "@/data/categories.json";
 
-function DateLabel() {
+export function DateLabel() {
   const [date, setDate] = useState("");
   useEffect(() => {
     // Read the browser's current time after hydration to avoid a stale build date.
