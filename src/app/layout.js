@@ -1,4 +1,9 @@
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import PriceTicker from "@/components/PriceTicker";
+import Footer from "@/components/Footer";
+import ProductsProvider from "@/components/ProductsProvider";
+import ToastProvider from "@/components/ToastProvider";
 
 export const metadata = {
   title: { default: "বাজার দর — আজকের বাজারের দাম", template: "%s | বাজার দর" },
@@ -8,7 +13,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="bn" data-theme="light">
-      <body>{children}</body>
+      <body>
+        <a href="#main-content" className="skip-link">মূল কনটেন্টে যান</a>
+        <ProductsProvider>
+          <Navbar />
+          <PriceTicker />
+          <main id="main-content">{children}</main>
+          <Footer />
+          <ToastProvider />
+        </ProductsProvider>
+      </body>
     </html>
   );
 }
