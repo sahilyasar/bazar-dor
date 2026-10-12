@@ -40,6 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Local design inspection and verification files
+# Local temporary files
 /.design-reference/
 /.qa/

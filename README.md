@@ -1,49 +1,33 @@
-# 🛒 বাজার দর / BazarDor
+# বাজার দর / BazarDor
 
-A simple Bangla market-price website built for **B14 Assignment 07**. Compare everyday essentials, see which prices increased or decreased, and check prices across different markets.
+BazarDor is a Bangla website for checking the prices of everyday essentials. It shows price changes and lets users compare prices across different markets.
 
-The layout follows the supplied **Figma and Penpot** designs, including their colors, Hind Siliguri typography, rounded product cards, three-column desktop grid, hero artwork, and footer.
+## Links
 
-## Project links
-
-- **GitHub:** https://github.com/sahilyasar/bazar-dor
-- **Live link:** Pending deployment.
-- **Local preview:** http://localhost:3000
-
-## Current phase
-
-The website UI and public product features are implemented. **Authentication and MongoDB are intentionally reserved for the next phase**, as requested.
-
-Sign-in, sign-up, profile, and name-update pages are interface previews. They validate input and show relevant messages, but they do not create accounts, sign users in, or save profile changes. Product details are currently public; server-side protection will be added with BetterAuth.
-
-## Key features
-
-1. **Bangla interface:** names, prices, units, percentage changes, and the current date in Bangladesh time.
-2. **Responsive layout:** one product column on mobile, two on tablet, and three on desktop.
-3. **Category navigation:** all eight assignment categories, with the current category highlighted.
-4. **Price ticker:** continuously scrolling prices with pause/resume and reduced-motion support.
-5. **Home page:** supplied hero illustration, a same-page `#সব-পণ্য` button, top six risers, top six fallers, and all 33 products.
-6. **Category filtering and sorting:** filter home products and sort category prices numerically, including Bengali-digit prices.
-7. **Product details:** unit, category, today's change, minimum/maximum/average price, and every market's price range.
-8. **Loading and error states:** animated skeletons, retry button, empty lists, and friendly missing-page screens.
-9. **API resilience:** primary API, both assignment backup APIs, then a clearly labeled saved API snapshot.
-10. **Account layouts:** sign-in, sign-up, social buttons, profile, name-update form, and toast messages ready for the next phase.
+- GitHub: https://github.com/sahilyasar/bazar-dor
+- Live site: Coming soon
 
 ## Technologies
 
-| Technology | Use |
-| --- | --- |
-| Next.js 16.4 + App Router | Pages, dynamic routes, product API handler, caching |
-| React 19 + JavaScript | Small reusable components and simple state |
-| Tailwind CSS 4 + DaisyUI | Styling, inputs, buttons, tables, skeletons |
-| react-hot-toast | Form validation and account-service messages |
-| Hind Siliguri | Locally served Bangla font, licensed under OFL |
+- Next.js and React
+- JavaScript
+- Tailwind CSS and DaisyUI
+- react-hot-toast
+- BetterAuth setup in progress
+- Hind Siliguri font
 
-**Next phase:** BetterAuth (email/password, Google, GitHub) and MongoDB.
+## Features
+
+- Bangla product names, prices, units, and date.
+- Responsive home page with a scrolling price ticker.
+- Top six products with rising prices and top six with falling prices.
+- Product filtering across eight categories.
+- Category pages with low-to-high and high-to-low price sorting.
+- Product details with minimum, maximum, and average market prices.
+- Loading skeletons, retry option, and friendly 404 pages.
+- Sign-in, sign-up, profile, and name-update forms.
 
 ## Run locally
-
-Use Node.js 20.9 or newer and npm.
 
 ```bash
 git clone https://github.com/sahilyasar/bazar-dor.git
@@ -52,9 +36,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000. No environment variables are required for this phase.
-
-On Windows PowerShell, use `npm.cmd` if the machine blocks `npm.ps1`.
+Open http://localhost:3000. Use `npm.cmd` instead of `npm` if PowerShell blocks npm scripts.
 
 ```bash
 npm run lint
@@ -62,59 +44,26 @@ npm run build
 npm start
 ```
 
-## Routes
+## Product API
 
-| Route | Page |
-| --- | --- |
-| `/` | Hero, price changes, all products |
-| `/category/[slug]` | Category products and sort dropdown |
-| `/product/[slug]` | Product details and market comparison |
-| `/signin` | Sign-in interface |
-| `/signup` | Registration interface |
-| `/profile` | Profile interface |
-| `/profile/update` | Name-update interface |
-| `/api/products` | Product data and fallback status |
+Products are fetched from the assignment API:
 
-Unknown routes, product slugs, and category slugs show a friendly 404 screen with a home link.
+`https://openapi.programming-hero.com/api/bazardor/products`
 
-## How the data works
+If it is unavailable, the app tries both backup APIs provided in the assignment. If all three fail, it shows saved API data with a notice.
 
-`src/lib/products.js` fetches `/products` from these assignment APIs in order:
+Prices are sorted as numbers and displayed in Bengali digits. The market average is calculated from the midpoint of each market's price range.
 
-1. `https://openapi.programming-hero.com/api/bazardor`
-2. `https://api.api-store.workers.dev/api/bazardor`
-3. `https://api.abcz.workers.dev/api/bazardor`
-
-Each request has a five-second timeout. Next.js caches successful data for one minute before revalidation. If all sources fail, the site uses the official API response saved on **12 October 2026** and shows that status. Saved information is never presented as a fresh API response.
-
-Categories come from the supplied API snapshot in `src/data/categories.json`. Filtering happens in JavaScript. Sorting uses numeric prices, never formatted text. Risers/fallers are ranked by the largest percentage change.
-
-The summary's minimum and maximum come from all market ranges. The average is the mean of the market midpoints, rounded for display. Each market row shows its own midpoint.
-
-The README and design disagree about badge colors. This project follows the assignment README: **green increases, red decreases, gray unchanged**, with arrows to show direction.
-
-## Simple project structure
+## Project structure
 
 ```text
-public/                  Supplied images and local fonts
-src/app/                 Pages, loading/error screens, product API
-src/components/          Navbar, hero, cards, forms, ticker, footer
-src/data/                Official API fallback snapshots
-src/lib/                 Data fetching and Bangla/price helpers
-docs/assignment-checklist.md
+src/app/          Pages and API routes
+src/components/   Reusable UI components
+src/lib/          Data, formatting, and authentication helpers
+src/data/         Saved product and category data
+public/           Images and fonts
 ```
 
-## Remaining before final submission
+## In progress
 
-- Connect BetterAuth with MongoDB.
-- Enable email/password, Google, and GitHub authentication.
-- Add real session state, logout, auth notifications, and pending loaders.
-- Protect product/profile/update routes on the server and notify on redirects.
-- Save name changes using BetterAuth `updateUser`.
-- Keep email verification and forgotten-password flows out of the assignment.
-- Visually check mobile, tablet, and desktop in a browser.
-- Deploy to Vercel (or another Next.js host), test route refreshes, and add the Live Link above.
-
-For Vercel, import this GitHub repository and use its Next.js framework preset. Keep the normal server deployment so dynamic routes and `/api/products` work; this project does not use static export.
-
-See [the full assignment checklist](docs/assignment-checklist.md) for the current and deferred requirements.
+Authentication and MongoDB integration are in progress. Account forms currently show messages without signing users in or saving changes. Product details are public until route protection is connected. Deployment and browser checks are also pending.
