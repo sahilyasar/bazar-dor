@@ -21,7 +21,7 @@ export default async function CategoryPage({ params }) {
   const category = categories.find((item) => item.slug === slug);
   if (!category) notFound();
   return (
-    <div className="container category-page">
+    <div className="mx-auto w-[calc(100%-2.5rem)] max-w-[1120px] max-[600px]:w-[calc(100%-2rem)] pt-10 pb-16">
       <CategoryProducts key={slug} category={category} />
     </div>
   );

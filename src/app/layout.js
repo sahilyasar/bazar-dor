@@ -4,6 +4,7 @@ import PriceTicker from "@/components/PriceTicker";
 import Footer from "@/components/Footer";
 import ProductsProvider from "@/components/ProductsProvider";
 import ToastProvider from "@/components/ToastProvider";
+import AuthNotifications from "@/components/AuthNotifications";
 
 export const metadata = {
   title: { default: "বাজার দর — আজকের বাজারের দাম", template: "%s | বাজার দর" },
@@ -13,17 +14,28 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="bn" data-theme="light" data-scroll-behavior="smooth">
-      <body>
-        <a href="#main-content" className="skip-link">
+    <html
+      className="scroll-smooth scroll-pt-6 motion-reduce:scroll-auto"
+      lang="bn"
+      data-theme="light"
+      data-scroll-behavior="smooth"
+    >
+      <body className="flex min-h-screen flex-col bg-page font-sans text-sm leading-normal text-ink">
+        <a
+          href="#main-content"
+          className="absolute -top-20 left-5 z-[100] bg-white p-3 focus:top-2.5"
+        >
           মূল কনটেন্টে যান
         </a>
         <ProductsProvider>
           <Navbar />
           <PriceTicker />
-          <main id="main-content">{children}</main>
+          <main id="main-content" className="flex-1">
+            {children}
+          </main>
           <Footer />
           <ToastProvider />
+          <AuthNotifications />
         </ProductsProvider>
       </body>
     </html>

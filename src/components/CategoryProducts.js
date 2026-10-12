@@ -17,29 +17,34 @@ export default function CategoryProducts({ category }) {
   );
   return (
     <>
-      <section className="category-heading">
-        <span className="category-icon" aria-hidden="true">
+      <section className="flex items-center gap-4 pb-8">
+        <span
+          className="grid size-[52px] place-items-center rounded-2xl border border-line bg-surface text-[28px]"
+          aria-hidden="true"
+        >
           {category.icon}
         </span>
         <div>
-          <h1>{category.nameBn}</h1>
-          <p className="muted">
+          <h1 className="mb-1 text-[30px] font-bold max-[600px]:text-[26px]">
+            {category.nameBn}
+          </h1>
+          <p className="text-base text-muted max-[600px]:text-sm">
             {loading
               ? "আজকের দাম ও পরিবর্তন"
               : `${banglaNumber(shown.length)}টি পণ্যের আজকের দাম ও পরিবর্তন`}
           </p>
         </div>
       </section>
-      <div className="category-toolbar">
-        <p className="muted" aria-live="polite">
+      <div className="mb-6 flex items-center justify-between gap-4 max-[600px]:flex-col max-[600px]:items-start">
+        <p className="text-muted" aria-live="polite">
           {loading
             ? "পণ্যের তথ্য লোড হচ্ছে…"
             : `মোট ${banglaNumber(shown.length)}টি পণ্য দেখানো হচ্ছে`}
         </p>
-        <label className="sort-control">
+        <label className="flex items-center gap-2.5 whitespace-nowrap">
           সাজান{" "}
           <select
-            className="select"
+            className="select h-9 min-h-9 w-auto min-w-[100px] rounded-lg border-line bg-surface text-xs"
             value={order}
             onChange={(event) => setOrder(event.target.value)}
           >
@@ -49,12 +54,12 @@ export default function CategoryProducts({ category }) {
           </select>
         </label>
       </div>
-      <DataNotice />
+      <DataNotice className="mb-6" />
       {!error &&
         (loading ? (
           <ProductSkeleton />
         ) : shown.length ? (
-          <div className="product-grid">
+          <div className="grid grid-cols-3 gap-4 max-[900px]:grid-cols-2 max-[600px]:grid-cols-1">
             {shown.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

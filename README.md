@@ -13,7 +13,7 @@ BazarDor is a Bangla website for checking the prices of everyday essentials. It 
 - JavaScript
 - Tailwind CSS and DaisyUI
 - react-hot-toast
-- BetterAuth setup in progress
+- BetterAuth and MongoDB
 - Hind Siliguri font
 
 ## Features
@@ -25,7 +25,8 @@ BazarDor is a Bangla website for checking the prices of everyday essentials. It 
 - Category pages with low-to-high and high-to-low price sorting.
 - Product details with minimum, maximum, and average market prices.
 - Loading skeletons, retry option, and friendly 404 pages.
-- Sign-in, sign-up, profile, and name-update forms.
+- Email/password sign-up, sign-in, and logout with toast messages.
+- Protected product and profile pages, with saved profile name updates.
 
 ## Run locally
 
@@ -37,6 +38,23 @@ npm run dev
 ```
 
 Open http://localhost:3000. Use `npm.cmd` instead of `npm` if PowerShell blocks npm scripts.
+
+Create a `.env` file with your configuration before starting the app:
+
+```env
+BETTER_AUTH_URL=http://localhost:3000
+BETTER_AUTH_SECRET=your_random_secret_at_least_32_characters
+MONGODB_URL=your_mongodb_connection_string
+```
+
+The database name is `bazar-dor`. You can change it with `MONGODB_DB_NAME`. Keep `.env` private; it is ignored by Git.
+
+For social login, also add `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GITHUB_CLIENT_ID`, and `GITHUB_CLIENT_SECRET`. Each provider's button is available when its credentials are configured. Set these callback URLs in your OAuth applications:
+
+- Google: `http://localhost:3000/api/auth/callback/google`
+- GitHub: `http://localhost:3000/api/auth/callback/github`
+
+Use the deployed site's address for `BETTER_AUTH_URL` and the callbacks in production.
 
 ```bash
 npm run lint
@@ -64,6 +82,8 @@ src/data/         Saved product and category data
 public/           Images and fonts
 ```
 
-## In progress
+## Authentication
 
-Authentication and MongoDB integration are in progress. Account forms currently show messages without signing users in or saving changes. Product details are public until route protection is connected. Deployment and browser checks are also pending.
+Registration saves the account in MongoDB and takes the user to sign-in. Successful sign-in opens the home page. The navbar shows the user's name, profile links, and logout button. Product details, profile, and name-update pages check the session on the server. Name changes are saved with BetterAuth's `updateUser` method.
+
+Email verification and password reset are not enabled for this assignment. Google and GitHub login need OAuth credentials. Deployment and visual browser checks are pending.
