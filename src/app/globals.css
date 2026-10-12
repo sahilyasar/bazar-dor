@@ -1,0 +1,47 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default;
+  logs: false;
+}
+@font-face {
+  font-family: "Hind Siliguri";
+  src: url("/fonts/hind-siliguri-bengali.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hind Siliguri";
+  src: url("/fonts/hind-siliguri-bengali-bold.woff2") format("woff2");
+  font-weight: 500 700;
+  font-display: swap;
+}
+@theme inline { --font-sans: "Hind Siliguri", "Nirmala UI", sans-serif; }
+:root {
+  --page: #f0f5f0;
+  --surface: #fafcfa;
+  --ink: #1d271f;
+  --muted: #68736a;
+  --line: #e1e8e1;
+  --green: #05893e;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--font-sans); font-size: 14px; line-height: 1.5; }
+a { text-decoration: none; }
+button, input, select { font: inherit; }
+button, select { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+:focus-visible { outline: 3px solid #05893e; outline-offset: 4px; }
+.container { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+.muted { color: var(--muted); }
+.btn { min-height: 40px; height: auto; padding: 9px 18px; border-radius: 8px; box-shadow: none; font-size: 14px; font-weight: 600; border: 1px solid var(--line); }
+.btn-primary { background: var(--green); color: white; border-color: var(--green); }
+.btn-primary:hover { background: #067334; border-color: #067334; }
+.btn-outline { background: transparent; color: var(--ink); }
+.btn-outline:hover { background: #e6ede6; border-color: #c6d4c6; }
+.skip-link { position: absolute; top: -80px; left: 20px; z-index: 100; background: white; padding: 12px; }
+.skip-link:focus { top: 10px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
