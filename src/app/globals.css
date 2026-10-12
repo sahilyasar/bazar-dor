@@ -114,6 +114,23 @@ a.product-card:hover { border-color: #a9c9ad; transform: translateY(-2px); }
 .skeleton-unit { height: 12px; width: 70px; }
 .skeleton-price { height: 30px; width: 85px; }
 .skeleton-badge { height: 24px; width: 58px; border-radius: 12px; }
+.category-page { padding-block: 40px 64px; }
+.category-heading { display: flex; align-items: center; gap: 16px; padding: 0 0 32px; }
+.category-icon { display: grid; place-items: center; width: 52px; height: 52px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); font-size: 28px; }
+.category-heading h1 { font-size: 30px; font-weight: 700; margin: 0 0 4px; }
+.category-heading p { font-size: 16px; margin: 0; }
+.category-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; }
+.sort-control { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+.sort-control .select { min-width: 100px; width: auto; height: 36px; min-height: 36px; border-radius: 8px; border-color: var(--line); background-color: var(--surface); font-size: 12px; }
+.category-page .data-notice { margin-bottom: 24px; }
+.empty-state { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 80px 20px; min-height: 520px; }
+.empty-icon { font-size: 48px; margin-bottom: 16px; }
+.empty-code { color: var(--green); font-weight: 700; font-size: 48px; line-height: 1; }
+.empty-state h1 { font-weight: 700; font-size: 28px; margin: 16px 0 8px; }
+.empty-state p { margin-bottom: 24px; }
+.error-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.loading-page { padding-block: 40px 64px; }
+.loading-heading { height: 48px; width: 200px; margin-bottom: 32px; }
 @media (max-width: 900px) {
   .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero-copy { max-width: 60%; }
@@ -137,6 +154,9 @@ a.product-card:hover { border-color: #a9c9ad; transform: translateY(-2px); }
   .hero-eyebrow .brand-date { font-size: 12px; }
   .product-grid { grid-template-columns: 1fr; }
   .data-notice { align-items: flex-start; flex-direction: column; }
+  .category-toolbar { align-items: flex-start; flex-direction: column; }
+  .category-heading h1 { font-size: 26px; }
+  .category-heading p { font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
